@@ -81,7 +81,15 @@ namespace CefSharp.WinForms
                     managedCefBrowserAdapter = null;
                 }
             }
-            base.Dispose(disposing);
+
+            if (InvokeRequired)
+            {
+                Invoke(new Action(() => base.Dispose(disposing)));
+            }
+            else
+            {
+                base.Dispose(disposing);
+            }
         }
 
         void IWebBrowserInternal.OnInitialized()
